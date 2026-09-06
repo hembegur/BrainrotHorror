@@ -1,0 +1,19 @@
+local REQUIRED_MODULE = require(script.Parent._Index["parihsz_chrono@2.1.6"]["chrono"])
+export type SnapshotData<Value, Velocity> = REQUIRED_MODULE.SnapshotData<Value, Velocity>
+export type Signal<fx, T...> = REQUIRED_MODULE.Signal<fx, T...>
+export type ClientEntitiesStats = REQUIRED_MODULE.ClientEntitiesStats 
+export type ServerEntitiesStats = REQUIRED_MODULE.ServerEntitiesStats 
+export type Connection = REQUIRED_MODULE.Connection 
+export type Event<fx, T...> = REQUIRED_MODULE.Event<fx, T...>
+export type Snapshot<Value, Velocity> = REQUIRED_MODULE.Snapshot<Value, Velocity>
+export type MODEL_REPLICATION_MODE = REQUIRED_MODULE.MODEL_REPLICATION_MODE 
+export type EntityConfig = REQUIRED_MODULE.EntityConfig 
+export type EntityConfigInput = REQUIRED_MODULE.EntityConfigInput 
+export type Ticker = REQUIRED_MODULE.Ticker 
+export type InterpolationBuffer = REQUIRED_MODULE.InterpolationBuffer 
+export type ClientClock = REQUIRED_MODULE.ClientClock 
+export type ReplicationRule = REQUIRED_MODULE.ReplicationRule 
+export type EntityReceivePacket = REQUIRED_MODULE.EntityReceivePacket 
+export type Entity = REQUIRED_MODULE.Entity 
+export type PlayerEntityHolder = REQUIRED_MODULE.PlayerEntityHolder 
+return REQUIRED_MODULE
