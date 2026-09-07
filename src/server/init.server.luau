@@ -7,7 +7,7 @@ Players.PlayerAdded:Connect(function(player)
 
 	local Money = Instance.new("IntValue")
 	Money.Name = "Money"
-	Money.Value = 10
+	Money.Value = 100000000000
 	Money.Parent = leaderstats
 
 	player.CharacterAdded:Connect(function(char: Model)

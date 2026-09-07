@@ -7,6 +7,7 @@ local Brainrot = {}
 Brainrot.__index = Brainrot
 
 export type Config = {
+	Name: string?,
 	Model: Model?,
 	Price: number?,
 	MoneyGenerateRate: number?,
@@ -17,6 +18,7 @@ export type Config = {
 
 export type Brainrot = typeof(setmetatable(
 	{} :: {
+		Name: string?,
 		Model: Model,
 		Captured: boolean,
 		MoneyGenerated: number,
@@ -34,6 +36,7 @@ export type Brainrot = typeof(setmetatable(
 function Brainrot.new(config: Config?): Brainrot
 	local resolved: Config = config or {}
 	local self = setmetatable({
+		Name = resolved.Name or resolved.Model.Name,
 		Model = resolved.Model:Clone(),
 		Price = resolved.Price or 0,
 		MoneyGenerateRate = resolved.MoneyGenerateRate or 0,
@@ -53,6 +56,13 @@ function Brainrot.new(config: Config?): Brainrot
 		end
 	end
 
+	--Highlight
+	local hightlight = Instance.new("Highlight")
+	hightlight.Parent = self.Model
+	hightlight.FillTransparency = 1
+	hightlight.OutlineColor = self.RarityColor
+	hightlight.DepthMode = Enum.HighlightDepthMode.Occluded
+
 	--Billboard gui setup
 	local billboardFold = Instance.new("Folder")
 	billboardFold.Parent = self.Model
@@ -62,8 +72,9 @@ function Brainrot.new(config: Config?): Brainrot
 		clone.Parent = billboardFold
 		clone.Adornee = self.Model.Head
 	end
-	billboardFold.NameGui.TextLabel.Text = self.Model.Name
+	billboardFold.NameGui.TextLabel.Text = self.Name
 	billboardFold.RarityGui.TextLabel.Text = self.Rarity
+	billboardFold.RarityGui.TextLabel.TextColor3 = self.RarityColor
 	billboardFold.MoneyRateGui.TextLabel.Text = self.MoneyGenerateRate .. "$/s"
 	billboardFold.PriceGui.TextLabel.Text = self.Price .. "$"
 

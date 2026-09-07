@@ -1,8 +1,8 @@
 local ServerScriptService = game:GetService("ServerScriptService")
-local TouchInputService = game:GetService("TouchInputService")
 local baseCurrStats = ServerScriptService.BaseStats
 local playerBase = workspace.Map.PlayerBase
 local upgrades = playerBase.UpgradeProgression
+local BrainrotData = require(ServerScriptService.Server.Classes.BrainrotData)
 
 local baseService = {}
 
@@ -29,19 +29,25 @@ end
 
 loadUpgrade(upgrades.Upgrade0)
 
+-- Upgrade prompt
 local prompt = Instance.new("ProximityPrompt")
 prompt.HoldDuration = 0
 prompt.MaxActivationDistance = 12
 prompt.Parent = playerBase.UpgradeSpot
-prompt.ActionText = "UpgradeBase"
+prompt.ActionText = "Upgrade Base " .. BrainrotData.GetUpgradePrice(1) .. "$"
 
 local currUpgrade = 1
 prompt.TriggerEnded:Connect(function(player: Player)
-	if currUpgrade > 21 then
+	if currUpgrade >= 21 then
+		prompt.ActionText = "Rebirth"
+		return
+	end
+	if player.leaderstats.Money.Value < BrainrotData.GetUpgradePrice(currUpgrade) then
 		return
 	end
 	loadUpgrade(upgrades["Upgrade" .. currUpgrade])
 	currUpgrade += 1
+	prompt.ActionText = "Upgrade Base " .. BrainrotData.GetUpgradePrice(currUpgrade) .. "$"
 end)
 
 return baseService
