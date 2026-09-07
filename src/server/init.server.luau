@@ -9,6 +9,15 @@ Players.PlayerAdded:Connect(function(player)
 	Money.Name = "Money"
 	Money.Value = 10
 	Money.Parent = leaderstats
+
+	player.CharacterAdded:Connect(function(char: Model)
+		for _, p in pairs(char:GetDescendants()) do
+			if p:IsA("BasePart") then
+				p.CollisionGroup = "Players"
+			end
+		end
+	end)
 end)
 
 require(script.Services.BrainrotSpawnService)
+require(script.Services.BaseService)

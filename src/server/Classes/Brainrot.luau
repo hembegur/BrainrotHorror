@@ -2,7 +2,6 @@ local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
 local ServerScriptService = game:GetService("ServerScriptService")
-local TraceRouteService = game:GetService("TraceRouteService")
 local baseCurrStats = ServerScriptService.BaseStats
 local Brainrot = {}
 Brainrot.__index = Brainrot
@@ -48,6 +47,11 @@ function Brainrot.new(config: Config?): Brainrot
 		_capturePrompt = nil,
 		_chosenSlot = nil,
 	}, Brainrot)
+	for _, p in pairs(self.Model:GetDescendants()) do
+		if p:IsA("BasePart") then
+			p.CollisionGroup = "Brainrots"
+		end
+	end
 
 	--Billboard gui setup
 	local billboardFold = Instance.new("Folder")
@@ -90,7 +94,7 @@ function Brainrot.new(config: Config?): Brainrot
 	local prompt = Instance.new("ProximityPrompt")
 	self._capturePrompt = prompt
 	prompt.HoldDuration = 0
-	prompt.MaxActivationDistance = 8
+	prompt.MaxActivationDistance = 12
 	prompt.Parent = self.Model.Torso
 	prompt.ActionText = "Buy"
 
@@ -122,6 +126,7 @@ function Brainrot.Buy(self: Brainrot, player: Player)
 	end
 
 	player.leaderstats.Money.Value -= self.Price
+	baseCurrStats.BrainrotCount.Value += 1
 	self.Captured = true
 	self._capturePrompt:Destroy()
 	local hum = self.Model.Humanoid :: Humanoid
@@ -156,6 +161,7 @@ function Brainrot.GetInBase(self: Brainrot)
 	local hrp = self.Model.HumanoidRootPart
 	hrp.Anchored = true
 	self.Model:PivotTo(self._chosenSlot.Spawn.CFrame)
+	self.Model.Parent = workspace.Map.NPCs.BaseNPCs
 
 	self:ProduceMoney()
 
@@ -172,6 +178,7 @@ function Brainrot.GetInBase(self: Brainrot)
 		prompt.TriggerEnded:Connect(function(player: Player)
 			self._chosenSlot.Configuration.Occupied.Value = false
 			self._chosenSlot.Configuration.Thing.Value = nil
+			baseCurrStats.BrainrotCount.Value -= 1
 			self._moneyGui:Destroy()
 			self:Destroy()
 		end)
