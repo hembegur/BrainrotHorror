@@ -1,4 +1,7 @@
 local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local closerangeWeapons = require(script.Classes.Weapons.CloseRangeWeapon)
 
 Players.PlayerAdded:Connect(function(player)
 	local leaderstats = Instance.new("Folder")
@@ -11,13 +14,13 @@ Players.PlayerAdded:Connect(function(player)
 	Money.Parent = leaderstats
 
 	player.CharacterAdded:Connect(function(char: Model)
-		for _, p in pairs(char:GetDescendants()) do
-			if p:IsA("BasePart") then
-				p.CollisionGroup = "Players"
-			end
-		end
+		char.Humanoid.WalkSpeed = 40
 	end)
 end)
 
-require(script.Services.BrainrotSpawnService)
+local brainrotSpawn = require(script.Services.BrainrotSpawnService)
 require(script.Services.BaseService)
+
+brainrotSpawn.Start()
+
+require(script.Services.CombatServerService)

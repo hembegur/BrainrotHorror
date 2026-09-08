@@ -190,6 +190,7 @@ local UpgradeBasePrices = {
 	16653,
 	20817,
 	26021,
+	0,
 }
 
 local function GetRebirthTarget()

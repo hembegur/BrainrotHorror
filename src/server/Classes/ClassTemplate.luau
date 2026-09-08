@@ -1,4 +1,5 @@
 local Brainrot = {}
+Brainrot.__index = Brainrot
 
 export type Config = {
 	Model: Model?,

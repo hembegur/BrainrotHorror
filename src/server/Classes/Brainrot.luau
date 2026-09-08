@@ -14,6 +14,7 @@ export type Config = {
 	Rarity: string?,
 	RarityColor: Color3?,
 	Animations: { [string]: Animation }?,
+	Sounds: { [string]: Sound }?,
 }
 
 export type Brainrot = typeof(setmetatable(
@@ -25,6 +26,7 @@ export type Brainrot = typeof(setmetatable(
 		Rarity: string?,
 		RarityColor: Color3?,
 		Animations: { [string]: Animation }?,
+		Sounds: { [string]: Sound }?,
 		_connections: { RBXScriptConnection },
 		_destroyed: boolean,
 		_capturePrompt: ProximityPrompt,
@@ -32,6 +34,8 @@ export type Brainrot = typeof(setmetatable(
 	},
 	Brainrot
 ))
+
+Brainrot.InBase = {} :: { Brainrot }
 
 function Brainrot.new(config: Config?): Brainrot
 	local resolved: Config = config or {}
@@ -44,7 +48,8 @@ function Brainrot.new(config: Config?): Brainrot
 		RarityColor = resolved.RarityColor or Color3.new(0, 1, 0),
 		MoneyGenerated = 0,
 		Captured = false,
-		Animations = {} :: { AnimationClip },
+		Animations = resolved.Animations or {} :: { AnimationClip },
+		Sounds = resolved.Sounds or {} :: { Sound },
 		_connections = {} :: { RBXScriptConnection },
 		_destroyed = false,
 		_capturePrompt = nil,
@@ -85,7 +90,7 @@ function Brainrot.new(config: Config?): Brainrot
 	local hrp = self.Model.HumanoidRootPart :: BasePart
 
 	local walkAnim = hum.Animator:LoadAnimation(
-		(resolved.Animations and resolved.Animations["Walk"]) or ReplicatedStorage.Animations.Brainrot.WalkAnimation
+		(self.Animations and self.Animations["Walk"]) or ReplicatedStorage.Animations.Brainrot.WalkAnimation
 	) :: AnimationTrack
 	walkAnim:Play()
 
@@ -128,20 +133,33 @@ function Brainrot.new(config: Config?): Brainrot
 end
 
 function Brainrot.Buy(self: Brainrot, player: Player)
-	if baseCurrStats.BrainrotCount.Value >= baseCurrStats.MaxBrainrots.Value then
-		print("nga")
+	if baseCurrStats.BrainrotCount.Value >= baseCurrStats.MaxBrainrots.Value or not baseCurrStats.Claimed.Value then
 		return
 	end
 	if player.leaderstats.Money.Value < self.Price then
 		return
 	end
+	local hum = self.Model.Humanoid :: Humanoid
+	local hrp = self.Model.HumanoidRootPart :: BasePart
 
+	table.insert(Brainrot.InBase, self)
+
+	--Sounds
+	local sound = self.Sounds["Buy"] or ReplicatedStorage.Audio.Brainrot.Tung_Tung_Tung_Sahur
+	local soundClone = sound:Clone()
+	soundClone.Parent = hrp
+	soundClone:Play()
+
+	sound = ReplicatedStorage.Audio.SoundEffects.Purchase
+	soundClone = sound:Clone()
+	soundClone.Parent = hrp
+	soundClone:Play()
+
+	--Buy process
 	player.leaderstats.Money.Value -= self.Price
 	baseCurrStats.BrainrotCount.Value += 1
 	self.Captured = true
 	self._capturePrompt:Destroy()
-	local hum = self.Model.Humanoid :: Humanoid
-	local hrp = self.Model.HumanoidRootPart :: BasePart
 
 	task.spawn(function()
 		while not self._destroyed do
@@ -187,10 +205,6 @@ function Brainrot.GetInBase(self: Brainrot)
 	table.insert(
 		self._connections,
 		prompt.TriggerEnded:Connect(function(player: Player)
-			self._chosenSlot.Configuration.Occupied.Value = false
-			self._chosenSlot.Configuration.Thing.Value = nil
-			baseCurrStats.BrainrotCount.Value -= 1
-			self._moneyGui:Destroy()
 			self:Destroy()
 		end)
 	)
@@ -226,6 +240,16 @@ function Brainrot.Destroy(self: Brainrot)
 	if self._destroyed then
 		return
 	end
+
+	if self.Captured then
+		if self._chosenSlot then
+			self._chosenSlot.Configuration.Occupied.Value = false
+			self._chosenSlot.Configuration.Thing.Value = nil
+			self._moneyGui:Destroy()
+		end
+		baseCurrStats.BrainrotCount.Value -= 1
+	end
+
 	self._destroyed = true
 	for _, connection in self._connections do
 		connection:Disconnect()
