@@ -5,9 +5,12 @@ Players.LocalPlayer.CharacterAdded:Connect(function(char: Model)
 	test:GiveTo(Players.LocalPlayer)
 end)
 
-task.wait(5)
-local warninghb = require(script.Classes.WarningHitbox)
-local new = warninghb.new({
-	HitboxCFrame = workspace.Part.CFrame,
-})
-new:Start()
+while true do
+	task.wait(5)
+	local warninghb = require(script.Classes.WarningHitbox)
+	local new = warninghb.new({
+		HitboxCFrame = workspace.Part.CFrame,
+		HitboxSize = Vector3.new(15, 15, 15),
+	})
+	new:Start()
+end

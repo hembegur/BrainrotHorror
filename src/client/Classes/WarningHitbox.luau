@@ -1,4 +1,5 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local TweenService = game:GetService("TweenService")
 local Hitbox = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("Classes"):WaitForChild("Hitbox"))
 local packets = require(ReplicatedStorage.Shared.Modules.Packets)
 
@@ -10,7 +11,6 @@ export type Config = {
 	HitboxSize: Vector3?,
 	Startup: number?,
 	Linger: number?,
-	VisualCFrame: CFrame?,
 	VisualSize: Vector3?,
 	Damage: number?,
 }
@@ -22,7 +22,6 @@ export type WarningHitbox = typeof(setmetatable(
 		Startup: number?,
 		Linger: number?,
 		Damage: number?,
-		VisualCFrame: CFrame?,
 		VisualSize: Vector3?,
 		_visualPart: Part?,
 		_hitbox: any?,
@@ -37,9 +36,8 @@ function WarningHitbox.new(config: Config?): WarningHitbox
 		HitboxCFrame = resolved.HitboxCFrame or CFrame.new(0, 0, 0),
 		HitboxSize = resolved.HitboxSize or Vector3.new(5, 5, 5),
 		Startup = resolved.Startup or 1.5,
-		Linger = resolved.Linger or 0.5,
+		Linger = resolved.Linger or 0.2,
 		Damage = resolved.Damage or 10,
-		VisualCFrame = resolved.VisualCFrame or resolved.HitboxCFrame,
 		VisualSize = resolved.VisualSize or Vector3.new(5, 5, 5),
 		_visualPart = nil,
 		_hitbox = nil,
@@ -59,11 +57,12 @@ function WarningHitbox.Start(self: WarningHitbox)
 	visualPart.Size = self.VisualSize
 	visualPart.CFrame = self.HitboxCFrame
 	visualPart.Anchored = true
+	visualPart.Material = Enum.Material.Neon
 
 	local hitbox = Hitbox.new(visualPart, {
 		Size = self.HitboxSize,
-		Offset = self.HitboxOffset,
-		Visualize = true,
+		Offset = CFrame.new(0, self.HitboxSize.Y * 2 / 5, 0),
+		Visualize = false,
 	})
 
 	hitbox.OnHit:Connect(function(_model, hitHumanoid)
@@ -73,10 +72,19 @@ function WarningHitbox.Start(self: WarningHitbox)
 	self._hitbox = hitbox
 
 	task.spawn(function()
-		task.wait(self.Startup - 0.5)
-		visualPart.Color = Color3.fromRGB(255, 255, 255)
-		visualPart.Transparency = 0
+		task.wait(self.Startup - 0.45)
+
+		TweenService:Create(visualPart, TweenInfo.new(0.3), {
+			Color = Color3.fromRGB(255, 255, 255),
+			Transparency = 0,
+		}):Play()
+
+		task.wait(0.45)
 		hitbox:Start(self.Linger)
+
+		TweenService:Create(visualPart, TweenInfo.new(0.5), {
+			Transparency = 1,
+		}):Play()
 	end)
 end
 
