@@ -13,6 +13,11 @@ Players.PlayerAdded:Connect(function(player)
 	Money.Value = 100000000000
 	Money.Parent = leaderstats
 
+	local Rebirth = Instance.new("IntValue")
+	Rebirth.Name = "Rebirth"
+	Rebirth.Value = 0
+	Rebirth.Parent = leaderstats
+
 	player.CharacterAdded:Connect(function(char: Model)
 		char.Humanoid.WalkSpeed = 40
 		char.Parent = workspace.Map.PlayerCharacters
@@ -29,9 +34,9 @@ require(script.Services.CombatServerService)
 local offset = 0
 while true do
 	local npc = require(script.Classes.NPC.NPC)
-	local new = npc.new()
+	local new = npc.new({ Health = 1 })
 	new:SetCFrame(workspace.Test.CFrame * CFrame.new(0, 0, offset))
 	new:StealBrainrot()
 	offset += 10
-	task.wait(10)
+	task.wait(100)
 end

@@ -13,6 +13,7 @@ export type Config = {
 	Linger: number?,
 	VisualSize: Vector3?,
 	Damage: number?,
+	WarningWindow: number?,
 	Filter: { Model }?,
 }
 
@@ -25,9 +26,11 @@ export type WarningHitbox = typeof(setmetatable(
 		Damage: number?,
 		VisualSize: Vector3?,
 		Filter: { Model }?,
+		WarningWindow: number?,
 		_visualPart: Part?,
 		_hitbox: any?,
 		_destroyed: boolean?,
+		_connections: { RBXScriptConnection }?,
 	},
 	WarningHitbox
 ))
@@ -37,11 +40,13 @@ function WarningHitbox.new(config: Config?): WarningHitbox
 	local self = setmetatable({
 		HitboxCFrame = resolved.HitboxCFrame or CFrame.new(0, 0, 0),
 		HitboxSize = resolved.HitboxSize or Vector3.new(5, 5, 5),
-		Startup = resolved.Startup or 1.5,
+		Startup = resolved.Startup or 1,
 		Linger = resolved.Linger or 0.2,
 		Damage = resolved.Damage or 10,
+		WarningWindow = resolved.WarningWindow or 0.4,
 		VisualSize = resolved.VisualSize or Vector3.new(5, 5, 5),
 		Filter = resolved.Filter or {},
+		_connections = {} :: { RBXScriptConnection },
 		_visualPart = nil,
 		_hitbox = nil,
 		_destroyed = false,
@@ -61,6 +66,7 @@ function WarningHitbox.Start(self: WarningHitbox)
 	visualPart.CFrame = self.HitboxCFrame
 	visualPart.Anchored = true
 	visualPart.Material = Enum.Material.Neon
+	self._visualPart = visualPart
 
 	local hitbox = Hitbox.new(visualPart, {
 		Size = self.HitboxSize,
@@ -69,26 +75,32 @@ function WarningHitbox.Start(self: WarningHitbox)
 		Filter = self.Filter,
 	})
 
-	hitbox.OnHit:Connect(function(_model, hitHumanoid)
-		local damage = self.Damage
-		packets.DealDamage:Fire(hitHumanoid, damage)
-	end)
+	table.insert(
+		self._connections,
+		hitbox.OnHit:Connect(function(_model, hitHumanoid)
+			local damage = self.Damage
+			packets.DealDamage:Fire(hitHumanoid, damage)
+		end)
+	)
 	self._hitbox = hitbox
 
 	task.spawn(function()
-		task.wait(self.Startup - 0.45)
+		task.wait(self.Startup - self.WarningWindow)
 
 		TweenService:Create(visualPart, TweenInfo.new(0.3), {
 			Color = Color3.fromRGB(255, 255, 255),
 			Transparency = 0,
 		}):Play()
 
-		task.wait(0.45)
+		task.wait(self.WarningWindow)
 		hitbox:Start(self.Linger)
 
 		TweenService:Create(visualPart, TweenInfo.new(0.5), {
 			Transparency = 1,
 		}):Play()
+
+		task.wait(self.Linger + 0.5)
+		self:Destroy()
 	end)
 end
 
@@ -98,6 +110,7 @@ function WarningHitbox.Destroy(self: WarningHitbox)
 	end
 	self._destroyed = true
 	self._hitbox:Destroy()
+	self._visualPart:Destroy()
 	for _, connection in self._connections do
 		connection:Disconnect()
 	end

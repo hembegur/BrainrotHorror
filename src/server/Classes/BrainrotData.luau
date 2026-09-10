@@ -40,9 +40,8 @@ local raw: { [string]: any } = {
 		Model = ReplicatedStorage.Models.Brainrots:FindFirstChild("Ballerina_Cappuccina"),
 		BasePrice = BASE_COMMON_PRICE * 1.05,
 		BaseRate = BASE_COMMON_RATE * 1.0,
-		Animations = {
-			Walk = ReplicatedStorage.Animations.Brainrot.BallerinaWalkAnimation,
-		},
+		Animations = { Walk = ReplicatedStorage.Animations.Brainrot.BallerinaWalkAnimation },
+		Sounds = { Buy = ReplicatedStorage.Audio.Brainrot.Ballerina_Cappuccina },
 	},
 	Bombardiro_Crocodilo = {
 		Name = "Bombardiro Crocodilo",
@@ -52,6 +51,7 @@ local raw: { [string]: any } = {
 		Animations = {
 			Walk = ReplicatedStorage.Animations.Brainrot.BombardiroFlyAnimation,
 		},
+		Sounds = { Buy = ReplicatedStorage.Audio.Brainrot.Bombardiro_Crocodilo },
 	},
 	Brr_Brr_Patapim = {
 		Name = "Brr Brr Patapim",
@@ -61,6 +61,7 @@ local raw: { [string]: any } = {
 		Animations = {
 			Walk = ReplicatedStorage.Animations.Brainrot.TungSahurWalkAnimation,
 		},
+		Sounds = { Buy = ReplicatedStorage.Audio.Brainrot.Brr_Brr_Patapim },
 	},
 	Cappuccino_Assassino = {
 		Name = "Cappuccino Assassino",
@@ -70,6 +71,7 @@ local raw: { [string]: any } = {
 		Animations = {
 			Walk = ReplicatedStorage.Animations.Brainrot.CappuccinoWalkAnimation,
 		},
+		Sounds = { Buy = ReplicatedStorage.Audio.Brainrot.Cappuccino_Assassino },
 	},
 	Chimpanzini_Bananini = {
 		Name = "Chimpanzini Bananini",
@@ -79,6 +81,7 @@ local raw: { [string]: any } = {
 		Animations = {
 			Walk = ReplicatedStorage.Animations.Brainrot.BombardiroFlyAnimation,
 		},
+		Sounds = { Buy = ReplicatedStorage.Audio.Brainrot.Chimpanzini_Bananini },
 	},
 	Frigo_Camelo = {
 		Name = "Frigo Camelo",
@@ -88,6 +91,7 @@ local raw: { [string]: any } = {
 		Animations = {
 			Walk = ReplicatedStorage.Animations.Brainrot.BombardiroFlyAnimation,
 		},
+		Sounds = { Buy = ReplicatedStorage.Audio.Brainrot.Frigo_Camelo },
 	},
 	Lirili_Larila = {
 		Name = "Lirili Larila",
@@ -97,6 +101,7 @@ local raw: { [string]: any } = {
 		Animations = {
 			Walk = ReplicatedStorage.Animations.Brainrot.BombardiroFlyAnimation,
 		},
+		Sounds = { Buy = ReplicatedStorage.Audio.Brainrot.Lirili_Larila },
 	},
 	Noobini_Pizzanini = {
 		Name = "Noobini Pizzanini",
@@ -106,6 +111,7 @@ local raw: { [string]: any } = {
 		Animations = {
 			Walk = ReplicatedStorage.Animations.Brainrot.WalkAnimation,
 		},
+		Sounds = { Buy = ReplicatedStorage.Audio.Brainrot.Noobini_Pizzanini },
 	},
 	Odin_Din_Din_Dun = {
 		Name = "Odin Din Din Dun",
@@ -115,6 +121,7 @@ local raw: { [string]: any } = {
 		Animations = {
 			Walk = ReplicatedStorage.Animations.Brainrot.OdinWalkAnimation,
 		},
+		Sounds = { Buy = ReplicatedStorage.Audio.Brainrot.Odin_Din_Din_Dun },
 	},
 	Tralalero_Tralala = {
 		-- guessed name from screenshot; change string if different
@@ -125,6 +132,7 @@ local raw: { [string]: any } = {
 		Animations = {
 			Walk = ReplicatedStorage.Animations.Brainrot.BombardiroFlyAnimation,
 		},
+		Sounds = { Buy = ReplicatedStorage.Audio.Brainrot.Tralalero_Tralala },
 	},
 	Tung_Tung_Tung_Sahur = {
 		Name = "Tung Tung Tung Sahur",
@@ -134,6 +142,7 @@ local raw: { [string]: any } = {
 		Animations = {
 			Walk = ReplicatedStorage.Animations.Brainrot.TungSahurWalkAnimation,
 		},
+		Sounds = { Buy = ReplicatedStorage.Audio.Brainrot.Tung_Tung_Tung_Sahur },
 	},
 }
 
@@ -164,6 +173,7 @@ local function GetConfig(entryName: string, rarity: string?)
 		Rarity = rarity,
 		RarityColor = color,
 		Animations = e.Animations,
+		Sounds = e.Sounds,
 	}
 end
 

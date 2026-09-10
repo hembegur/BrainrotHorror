@@ -10,8 +10,8 @@ local Hitbox = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("Cl
 
 local DEFAULT_DAMAGE = 15
 local DEFAULT_HITBOX_SIZE = Vector3.new(4, 5, 5)
-local DEFAULT_COOLDOWN = 1 -- seconds between swings
-local DEFAULT_SWING_DURATION = 0.2 -- hitbox-active window if a track has no length yet
+local DEFAULT_COOLDOWN = 0.5 -- seconds between swings
+local DEFAULT_SWING_DURATION = 0.1 -- hitbox-active window if a track has no length yet
 
 local cachedTemplate: Tool? = nil
 local cachedAnimations: { Animation }? = nil

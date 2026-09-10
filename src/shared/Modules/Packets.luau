@@ -28,6 +28,7 @@ export type Stack = { Id: string, Count: number }
 
 local Packets = {
 	DealDamage = Packet("DealDamage", Packet.Any, Packet.NumberS16), --Humanoid / Damage
+	SpawnHitbox = Packet("SpawnHitbox", Packet.Any),
 }
 
 return Packets

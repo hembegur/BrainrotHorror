@@ -77,11 +77,13 @@ prompt.TriggerEnded:Connect(function(player: Player)
 		prompt.ActionText = "Upgrade Base " .. 1 .. " (" .. BrainrotData.GetUpgradePrice(1) .. "$)"
 		resetBase()
 		loadUpgrade(upgrades.Upgrade0)
+		player.leaderstats.Rebirth.Value += 1
 		return
 	end
 	if player.leaderstats.Money.Value < BrainrotData.GetUpgradePrice(currUpgrade) then
 		return
 	end
+	player.leaderstats.Money.Value -= BrainrotData.GetUpgradePrice(currUpgrade)
 	loadUpgrade(upgrades["Upgrade" .. currUpgrade])
 
 	currUpgrade += 1
