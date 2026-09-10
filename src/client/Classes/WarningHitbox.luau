@@ -13,6 +13,7 @@ export type Config = {
 	Linger: number?,
 	VisualSize: Vector3?,
 	Damage: number?,
+	Filter: { Model }?,
 }
 
 export type WarningHitbox = typeof(setmetatable(
@@ -23,6 +24,7 @@ export type WarningHitbox = typeof(setmetatable(
 		Linger: number?,
 		Damage: number?,
 		VisualSize: Vector3?,
+		Filter: { Model }?,
 		_visualPart: Part?,
 		_hitbox: any?,
 		_destroyed: boolean?,
@@ -39,6 +41,7 @@ function WarningHitbox.new(config: Config?): WarningHitbox
 		Linger = resolved.Linger or 0.2,
 		Damage = resolved.Damage or 10,
 		VisualSize = resolved.VisualSize or Vector3.new(5, 5, 5),
+		Filter = resolved.Filter or {},
 		_visualPart = nil,
 		_hitbox = nil,
 		_destroyed = false,
@@ -63,6 +66,7 @@ function WarningHitbox.Start(self: WarningHitbox)
 		Size = self.HitboxSize,
 		Offset = CFrame.new(0, self.HitboxSize.Y * 2 / 5, 0),
 		Visualize = false,
+		Filter = self.Filter,
 	})
 
 	hitbox.OnHit:Connect(function(_model, hitHumanoid)

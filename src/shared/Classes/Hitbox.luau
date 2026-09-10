@@ -62,6 +62,7 @@ function Hitbox.new(followPart: BasePart, config: Config): Hitbox
 	local overlapParams = OverlapParams.new()
 	overlapParams.FilterType = Enum.RaycastFilterType.Exclude
 	overlapParams.FilterDescendantsInstances = config.Filter or {}
+	overlapParams.CollisionGroup = "Hitboxes"
 
 	return setmetatable({
 		FollowPart = followPart,

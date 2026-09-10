@@ -27,7 +27,7 @@ local Packet = require(ReplicatedStorage:WaitForChild("Packages"):WaitForChild("
 export type Stack = { Id: string, Count: number }
 
 local Packets = {
-	DealDamage = Packet("DealDamage", Packet.Any, Packet.NumberS16),
+	DealDamage = Packet("DealDamage", Packet.Any, Packet.NumberS16), --Humanoid / Damage
 }
 
 return Packets

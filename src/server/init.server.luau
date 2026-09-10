@@ -15,6 +15,7 @@ Players.PlayerAdded:Connect(function(player)
 
 	player.CharacterAdded:Connect(function(char: Model)
 		char.Humanoid.WalkSpeed = 40
+		char.Parent = workspace.Map.PlayerCharacters
 	end)
 end)
 
@@ -24,3 +25,13 @@ require(script.Services.BaseService)
 brainrotSpawn.Start()
 
 require(script.Services.CombatServerService)
+
+local offset = 0
+while true do
+	local npc = require(script.Classes.NPC.NPC)
+	local new = npc.new()
+	new:SetCFrame(workspace.Test.CFrame * CFrame.new(0, 0, offset))
+	new:StealBrainrot()
+	offset += 10
+	task.wait(10)
+end
