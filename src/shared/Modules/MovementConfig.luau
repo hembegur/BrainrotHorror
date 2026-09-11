@@ -18,6 +18,7 @@ local MovementConfig = {
 		Speed = 60, -- studs/second while the dash lasts
 		Duration = 0.25, -- seconds of forced movement
 		Cooldown = 1.5, -- seconds between dashes
+		IFrame = 0.2,
 		-- Cap on how hard the constraint may push toward the dash velocity.
 		-- Finite so collisions absorb the dash instead of flinging the
 		-- character; raise it if the dash feels sluggish to start.

@@ -16,4 +16,4 @@ end)
 local uiService = require(script.Services.UiService)
 local combatService = require(script.Services.CombatClientService)
 
-require(script.Controllers.MovementController)
+require(script.Controllers.MovementController):Start()

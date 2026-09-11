@@ -91,6 +91,7 @@ local function dash()
 	lastDashTime = now
 	dashing = true
 	local localDirection = getDashLocalDirection()
+	character:SetAttribute("IFrames", true)
 
 	-- Plane mode: the constraint owns X/Z velocity, gravity keeps owning Y.
 	local attachment = Instance.new("Attachment")
@@ -110,7 +111,11 @@ local function dash()
 	local startTime = os.clock()
 	local connection: RBXScriptConnection
 	connection = RunService.RenderStepped:Connect(function()
-		local expired = os.clock() - startTime >= MovementConfig.Dash.Duration
+		local expired = os.clock() - startTime >= MovementConfig.Dash.IFrame
+		if expired or not rootPart:IsDescendantOf(workspace) or humanoid.Health <= 0 then
+			character:SetAttribute("IFrames", false)
+		end
+		expired = os.clock() - startTime >= MovementConfig.Dash.Duration
 		if expired or not rootPart:IsDescendantOf(workspace) or humanoid.Health <= 0 then
 			connection:Disconnect()
 			velocity:Destroy()
@@ -118,6 +123,7 @@ local function dash()
 			dashing = false
 			return
 		end
+
 		-- Re-aim from the camera's current yaw: turning mid-dash steers it.
 		local worldDirection = toWorldDirection(localDirection, rootPart)
 		local planeVelocity = worldDirection * MovementConfig.Dash.Speed

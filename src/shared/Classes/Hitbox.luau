@@ -120,6 +120,12 @@ function Hitbox._pulse(self: Hitbox)
 			if humanoid then
 				if not self._hitHumanoids[humanoid] and humanoid.Health > 0 then
 					self._hitHumanoids[humanoid] = true
+
+					if model:GetAttribute("IFrames") then
+						print("dodge")
+						break
+					end
+
 					self.OnHit:Fire(model, humanoid)
 				end
 				break

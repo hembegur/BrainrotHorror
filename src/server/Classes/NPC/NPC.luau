@@ -71,7 +71,7 @@ function npc.new(config: Config?): npc
 		Health = resolved.Health or 100,
 		WalkSpeed = resolved.WalkSpeed or 20,
 		Weapon = resolved.Weapon or ReplicatedStorage.Models.Weapons.Sword,
-		AggroRange = resolved.AggroRange or 20,
+		AggroRange = resolved.AggroRange or 15,
 		Animations = resolved.Animations or {} :: { AnimationClip },
 		AttackCD = resolved.AttackCD or 2,
 		AttackRange = resolved.AttackRange or 7,
