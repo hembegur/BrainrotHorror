@@ -19,6 +19,8 @@ export type Config = {
 	Animations: { [string]: Animation }?,
 	AttackCD: number?,
 	AttackRange: number?,
+	HitboxSize: Vector3?,
+	HitboxOffset: CFrame?,
 }
 
 export type npc = typeof(setmetatable(
@@ -33,6 +35,8 @@ export type npc = typeof(setmetatable(
 		Animations: { [string]: Animation }?,
 		AttackCD: number?,
 		AttackRange: number?,
+		HitboxSize: Vector3?,
+		HitboxOffset: CFrame?,
 		_hum: Humanoid?,
 		_connections: { RBXScriptConnection },
 		_destroyed: boolean,
@@ -75,6 +79,8 @@ function npc.new(config: Config?): npc
 		Animations = resolved.Animations or {} :: { AnimationClip },
 		AttackCD = resolved.AttackCD or 2,
 		AttackRange = resolved.AttackRange or 7,
+		HitboxSize = resolved.HitboxSize or Vector3.new(10, 5, 10),
+		HitboxOffset = resolved.HitboxOffset or CFrame.new(0, -2.5, -5),
 		_connections = {} :: { RBXScriptConnection },
 		_destroyed = false,
 		_hasBrainrot = false,
@@ -184,8 +190,8 @@ function npc.StealBrainrot(self: npc)
 						Startup = 0.5,
 						Linger = 0.2,
 						WarningWindow = 0.3,
-						HitboxCFrame = hrp.CFrame * CFrame.new(0, -2.5, -5),
-						HitboxSize = Vector3.new(10, 5, 10),
+						HitboxCFrame = hrp.CFrame * self.HitboxOffset,
+						HitboxSize = self.HitboxSize,
 						Filter = workspace.Map.NPCs.EnemyNPCs:GetChildren(),
 					})
 

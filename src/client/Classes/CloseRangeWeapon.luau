@@ -1,18 +1,3 @@
---!strict
--- Close-range (melee) weapon: wraps a Tool, and on activation plays one of
--- the swing animations at random while pulsing a Hitbox in front of the
--- wielder's HumanoidRootPart, damaging every humanoid it touches (once per
--- swing). The hitbox re-scans several times over the swing at the wielder's
--- current position, and displays each scan in-game. Damage is scaled by the
--- wielder's StatusEffects melee multiplier (Strength/Weakness) at hit time.
---
--- Placeholder assets for now — the Tool template defaults to
--- ReplicatedStorage.Assets.Tools.Weapons.Sword and swings come from the
--- CloseRange folder under ReplicatedStorage.Assets.Animations. Procedurally
--- generated weapons later just mean passing a different Config (template,
--- damage, hitbox size, cooldown) into .new.
---
--- Usage:
 --   local sword = CloseRangeWeapon.new()
 --   sword:GiveTo(player)
 

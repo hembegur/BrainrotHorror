@@ -61,6 +61,8 @@ function Brainrot.new(config: Config?): Brainrot
 		end
 	end
 
+	--print(self.Name)
+
 	--Highlight
 	local hightlight = Instance.new("Highlight")
 	hightlight.Parent = self.Model
