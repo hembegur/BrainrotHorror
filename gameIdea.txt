@@ -1,0 +1,65 @@
+Super horror brainrot game 😨
+Game type: Story game, max 4 players.
+Main gameplay loop: 
+Players buy brainrots walking in a straight line and bring back to base gain moni to buy more brainrots, upgrading their base and rebirth.
+Npc bases spawn randomly to steal your brainrot
+As the game progress, spooky scari thing will happen, reveal some lore
+Final boss fight in the end i think
+
+Game lore:
+Some hecker injected weird prompts into a brainrot generators that made it malfunctioned and fuck up the brainrots, creating creepy, spooky, violent brainrots.
+When playing the game, players noticed weird looking brainrots that jumpscared and got violent at them, the map were also glitching and sometimes turned into a completely different map that looked spooki.
+Npc bases were glitching and npcs also turned into weird figures that were violent.
+After rebirthing the ?rd time, players discovered a bugged part of the map and upon interacting, they got teleported into the source code of the ai.
+*Ending 1*
+Players along side with Tung went through random shit, beat the hecker boss and finally fixed the prompt and returned to playing the brainrot game normally.
+*Ending 2*
+After beating hecker, player can choose to betray Tung and the brainrots. Beat the brainrots and destroy the ai and the game, finally escaping the brainrots matrix.
+*Super Secret Ending*
+Uh no idea atm.
+
+
+Chapter 1: Original game part
+(~ 45 minutes -> 1 hour)
+
+Player goal: Successfully rebirth 4 times without dying and defeat the corrupted brainrot boss (3 lives per player, reset each rebirth) 
+
+
+Players spawn inside an average brainrot map.
+Everyone together claim a single base like in tycoon, a quick tutorial play and start collecting brainrots.
+
+After a couple of minutes, npc bases will spawn and try to steal your brain rot, the number will scale with player count.
+
+The amount of dangers, anomalies, spookiness will increase as the rebirth number increase.
+
+Shop: sell weapons, ultilities.
+
+After 4 rebirths a big boss brainrot will spawn, and upon defeating will spawn a portal to the ai source code.
+
+Specific Anomalies:
++ Glitch orb: If not reported in a specific amount of time it will damage all players in map, orbs will spawn shadow figures to fight players
++ Corrupted brainrot: Run toward you if you get close to it and jump scare + damages player (Dodgable)
++ Giant head: Hide in base for 5 seconds for it to go away or die.
++ Glitched player: Massive hp and stand in front of your base, if you dont kill him in time he will start running and damaging players
+
+
+
+Chapter 2: Inside ai source code
+(~ 1 hour -> 1.5 hour)
+
+Player goal: Fix the prompt or Destroy the game
+
+Players go through several different areas to fix the prompt and in the last area, player can decide to completely fix it or betray the brainrots and destroy the game.
+
+Area 1: Architecture and Algorithms
+A maze puzzle that has lots of parkour elements.
+
+Area 2: Parameters
+Tunnels with lots of traps, enemies.
+
+Area 3: Mathematical Functions
+Big house that has puzzles that contain keys for the final area. 
+
+Area 3: Final Boss
+Cool boss fight -> Win and fix prompt -> Ending 1
+Get the option to betray the brainrots after defeating the boss, another fight against brainrots if you choose to go for that route. -> Ending 2

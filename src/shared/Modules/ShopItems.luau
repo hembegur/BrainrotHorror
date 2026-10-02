@@ -1,6 +1,3 @@
-local ServerScriptService = game:GetService("ServerScriptService")
-local CloseRangeWeapon = require(ServerScriptService.Server.Classes.Weapons.CloseRangeWeapon)
-
 return {
 	{
 		Name = "Sword",
@@ -29,5 +26,9 @@ return {
 	{
 		Name = "Rocket Launcher",
 		Price = 20000,
+	},
+	{
+		Name = "Medkit",
+		Price = 5000,
 	},
 }

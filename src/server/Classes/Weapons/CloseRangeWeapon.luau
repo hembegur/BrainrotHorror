@@ -3,9 +3,7 @@
 --   local sword = CloseRangeWeapon.new()
 --   sword:GiveTo(player)
 
-local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local packets = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("Modules"):WaitForChild("Packets"))
 local Hitbox = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("Classes"):WaitForChild("Hitbox"))
 
 local DEFAULT_DAMAGE = 15
@@ -171,16 +169,8 @@ function CloseRangeWeapon._onEquipped(self: CloseRangeWeapon)
 		Filter = { character },
 		Visualize = true,
 	})
-	local wielder = Players:GetPlayerFromCharacter(character)
 	hitbox.OnHit:Connect(function(_model, hitHumanoid)
-		local damage = self.Damage
-		-- Read at hit time, not equip time, so effects gained or lost
-		-- mid-swing count. Non-player wielders (future enemies) deal base damage.
-		local object = wielder
-		-- if object then
-		-- 	damage *= object.StatusEffects:GetMeleeDamageMultiplier()
-		-- end
-		packets.DealDamage:Fire(hitHumanoid, damage)
+		hitHumanoid:TakeDamage(self.Damage)
 	end)
 	self._hitbox = hitbox
 end

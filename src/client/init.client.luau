@@ -3,8 +3,8 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local packets = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("Modules"):WaitForChild("Packets"))
 
 Players.LocalPlayer.CharacterAdded:Connect(function(char: Model)
-	local test = require(script.Classes.CloseRangeWeapon).new()
-	test:GiveTo(Players.LocalPlayer)
+	local sword = require(script.Classes.Weapons.Sword).new()
+	sword:GiveTo(Players.LocalPlayer)
 end)
 
 local warninghb = require(script.Classes.WarningHitbox)
