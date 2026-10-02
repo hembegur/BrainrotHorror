@@ -1,5 +1,5 @@
 local ServerScriptService = game:GetService("ServerScriptService")
-local CloseRangeWeapon = require(ServerScriptService.Server.Weapons.CloseRangeWeapon)
+local CloseRangeWeapon = require(ServerScriptService.Server.Classes.Weapons.CloseRangeWeapon)
 
 return {
 	{
